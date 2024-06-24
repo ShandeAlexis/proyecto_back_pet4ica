@@ -30,6 +30,9 @@ public class PublicacionDTO {
 	@JsonIgnoreProperties("publicaciones") // Ignorar publicaciones en el usuario para evitar bucles
 	private Set<Comentario> comentarios;
 
+	@JsonIgnoreProperties("publicacion") // Ignorar publicación en adopciones para evitar bucles
+	private Set<AdopcionDTO> adopciones;
+
 	public Long getId() {
 		return id;
 	}

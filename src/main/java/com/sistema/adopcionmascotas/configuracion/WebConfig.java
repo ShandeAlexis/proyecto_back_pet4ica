@@ -14,7 +14,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:5173") // Agrega el origen permitido
+                .allowedOrigins("http://localhost:5173","https://qfrj5skv-5173.brs.devtunnels.ms") // Agrega el origen permitido
                 .allowedMethods("GET", "POST", "PUT", "DELETE") // Métodos permitidos
                 .allowCredentials(true) // Permitir credenciales (cookies, encabezados de autorización, etc.)
                 .maxAge(3600); // Tiempo máximo de caché de pre-vuelo

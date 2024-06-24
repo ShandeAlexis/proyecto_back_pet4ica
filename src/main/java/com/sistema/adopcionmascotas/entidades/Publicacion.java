@@ -31,6 +31,10 @@ public class Publicacion {
 
 	@JsonManagedReference
 	@OneToMany(mappedBy = "publicacion", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Adopcion> adopciones = new HashSet<>();
+
+	@JsonManagedReference
+	@OneToMany(mappedBy = "publicacion", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Comentario> comentarios = new HashSet<>();
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -103,5 +107,13 @@ public class Publicacion {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public Set<Adopcion> getAdopciones() {
+		return adopciones;
+	}
+
+	public void setAdopciones(Set<Adopcion> adopciones) {
+		this.adopciones = adopciones;
 	}
 }
