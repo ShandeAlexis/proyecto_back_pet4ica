@@ -123,6 +123,9 @@ public class UsuarioServicioImpl implements UsuarioServicio{
         if (registroDTO.getApellidos() != null) {
             detalleUsuario.setApellidos(registroDTO.getApellidos());
         }
+        if (registroDTO.getSobremi() != null) {
+            detalleUsuario.setSobremi(registroDTO.getSobremi());
+        }
         if (registroDTO.getDni() != null) {
             detalleUsuario.setDni(registroDTO.getDni());
         }

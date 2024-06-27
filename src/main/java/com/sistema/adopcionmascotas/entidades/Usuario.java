@@ -6,6 +6,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "usuarios", uniqueConstraints = { @UniqueConstraint(columnNames = { "username" }),
@@ -15,10 +19,18 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-
+	@NotEmpty(message = "El nombre no puede estar vacío")
+	@Size(min = 3, message = "El nombre de usuario debe tener al menos 4 caracteres")
 	private String nombre;
+	@NotEmpty(message = "El nombre de usuario no puede estar vacío")
+	@Size(min = 3, message = "El nombre de usuario debe tener al menos 4 caracteres")
+	@Pattern(regexp = ".*\\d.*", message = "El nombre de usuario debe contener al menos un dígito")
 	private String username;
+	@NotEmpty(message = "El email no puede estar vacío")
+	@Email(message = "El email debe ser válido")
 	private String email;
+	@NotEmpty(message = "La contraseña no puede estar vacía")
+	@Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres")
 	private String password;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -33,6 +45,8 @@ public class Usuario {
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
 	private Set<Publicacion> publicaciones = new HashSet<>();
+
+
 
 	public long getId() {
 		return id;

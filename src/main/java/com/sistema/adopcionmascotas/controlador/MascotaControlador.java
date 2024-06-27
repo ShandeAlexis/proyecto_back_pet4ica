@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,7 +28,7 @@ public class MascotaControlador {
     private MascotaServicio mascotaServicio;
 
     @PostMapping
-    public ResponseEntity<MascotaDTO> crearMascota(@RequestParam("nombre") String nombre,
+    public ResponseEntity<MascotaDTO> crearMascota(@Valid @RequestParam("nombre") String nombre,
                                                    @RequestParam("raza") String raza,
                                                    @RequestParam("edad") int edad,
                                                    @RequestParam("foto") MultipartFile foto) {
@@ -62,7 +63,7 @@ public class MascotaControlador {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MascotaDTO> actualizarMascota(@PathVariable(name = "id") Long id,
+    public ResponseEntity<MascotaDTO> actualizarMascota( @Valid @PathVariable(name = "id") Long id,
                                                         @RequestParam("nombre") String nombre,
                                                         @RequestParam("raza") String raza,
                                                         @RequestParam("edad") int edad,

@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,7 +21,7 @@ public class UsuarioControlador {
     private UsuarioServicio usuarioServicio;
 
     @PostMapping("/registrar")
-    public ResponseEntity<?> registrarUsuario(@RequestBody RegistroDTO registroDTO) {
+    public ResponseEntity<?> registrarUsuario(@Valid @RequestBody RegistroDTO registroDTO) {
         try {
             usuarioServicio.registrarUsuario(registroDTO);
             return new ResponseEntity<>("Usuario registrado exitosamente", HttpStatus.OK);
@@ -46,7 +47,7 @@ public class UsuarioControlador {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> actualizarUsuario(@PathVariable long id, @RequestBody RegistroDTO registroDTO) {
+    public ResponseEntity<Usuario> actualizarUsuario(@Valid @PathVariable long id, @RequestBody RegistroDTO registroDTO) {
         Usuario usuario = usuarioServicio.actualizarUsuario(id, registroDTO);
         return new ResponseEntity<>(usuario, HttpStatus.OK);
     }

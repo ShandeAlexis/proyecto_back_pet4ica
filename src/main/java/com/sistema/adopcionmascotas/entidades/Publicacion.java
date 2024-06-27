@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -16,12 +18,16 @@ public class Publicacion {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotEmpty(message = "El título no puede estar vacío")
+	@Size(min = 3, message = "El título debe tener al menos 3 caracteres")
 	@Column(name = "titulo", nullable = false)
 	private String titulo;
-
+	@NotEmpty(message = "La descripción no puede estar vacía")
+	@Size(min = 3, message = "La descripción debe tener al menos 3 caracteres")
 	@Column(name = "descripcion", nullable = false)
 	private String descripcion;
-
+	@NotEmpty(message = "El contenido no puede estar vacío")
+	@Size(min = 3, message = "El contenido debe tener al menos 3 caracteres")
 	@Column(name = "contenido", nullable = false)
 	private String contenido;
 	@JsonBackReference

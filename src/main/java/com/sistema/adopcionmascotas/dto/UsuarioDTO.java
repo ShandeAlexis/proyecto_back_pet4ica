@@ -11,6 +11,7 @@ public class UsuarioDTO {
     private String username;
     private String email;
 
+    private String sobremi;
     private String dni;
     private String apellidos;
     private int edad;
@@ -24,12 +25,13 @@ public class UsuarioDTO {
     public UsuarioDTO() {
     }
 
-    public UsuarioDTO(Long id, String nombre, String username, String email, String dni, String apellidos, int edad, String sexo, Set<Rol> roles, Set<PublicacionDTO> publicaciones) {
+    public UsuarioDTO(Long id, String nombre, String username, String email, String dni, String apellidos,String sobremi, int edad, String sexo, Set<Rol> roles, Set<PublicacionDTO> publicaciones) {
         this.id = id;
         this.nombre = nombre;
         this.username = username;
         this.email = email;
         this.dni = dni;
+        this.sobremi= sobremi;
         this.apellidos = apellidos;
         this.edad = edad;
         this.sexo = sexo;
@@ -45,6 +47,14 @@ public class UsuarioDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getSobremi() {
+        return sobremi;
+    }
+
+    public void setSobremi(String sobremi) {
+        this.sobremi = sobremi;
     }
 
     public String getNombre() {

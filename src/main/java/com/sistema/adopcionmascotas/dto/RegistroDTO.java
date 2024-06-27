@@ -11,6 +11,8 @@ public class RegistroDTO {
 	private int edad;
 	private String sexo;
 
+	private String sobremi;
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -73,6 +75,14 @@ public class RegistroDTO {
 
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
+	}
+
+	public String getSobremi() {
+		return sobremi;
+	}
+
+	public void setSobremi(String sobremi) {
+		this.sobremi = sobremi;
 	}
 
 	public RegistroDTO() {

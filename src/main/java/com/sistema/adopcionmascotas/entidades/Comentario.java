@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "comentarios")
@@ -18,9 +20,10 @@ public class Comentario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-
 	private String nombre;
 	private String email;
+	@NotEmpty(message = "El cuerpo del comentario no puede estar vacío")
+	@Size(min = 1, message = "El cuerpo del comentario debe tener al menos 1 caracteres")
 	private String cuerpo;
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)

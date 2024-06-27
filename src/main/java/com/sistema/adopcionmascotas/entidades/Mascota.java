@@ -1,6 +1,9 @@
 package com.sistema.adopcionmascotas.entidades;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -9,9 +12,13 @@ public class Mascota {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @NotEmpty(message = "El nombre no puede estar vacío")
+    @Size(min = 2, message = "El nombre debe tener al menos 2 caracteres")
     private String nombre;
+    @NotEmpty(message = "La raza no puede estar vacía")
+    @Size(min = 2, message = "La raza debe tener al menos 2 caracteres")
     private String raza;
+    @Min(value = 0, message = "La edad debe ser un valor positivo")
     private int edad;
     private String imagenPath; // Nueva propiedad para la ruta de la imagen
 

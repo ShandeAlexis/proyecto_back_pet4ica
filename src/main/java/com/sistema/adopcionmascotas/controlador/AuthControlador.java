@@ -25,6 +25,8 @@ import com.sistema.adopcionmascotas.repositorio.UsuarioRepositorio;
 import com.sistema.adopcionmascotas.seguridad.JWTAuthResonseDTO;
 import com.sistema.adopcionmascotas.seguridad.JwtTokenProvider;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthControlador {
@@ -39,7 +41,7 @@ public class AuthControlador {
 	private JwtTokenProvider jwtTokenProvider;
 
 	@PostMapping("/iniciarSesion")
-	public ResponseEntity<JWTAuthResonseDTO> authenticateUser(@RequestBody LoginDTO loginDTO){
+	public ResponseEntity<JWTAuthResonseDTO> authenticateUser( @Valid @RequestBody LoginDTO loginDTO){
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getUsernameOrEmail(), loginDTO.getPassword()));
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
