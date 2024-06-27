@@ -53,6 +53,14 @@ public class AdopcionServicioImpl implements AdopcionServicio{
         List<Adopcion> adopciones = adopcionRepository.findByPublicacionId(publicacionId);
         return adopciones.stream().map(this::mapearDTO).collect(Collectors.toList());
     }
+    @Override
+    public List<AdopcionDTO> obtenerSolicitudesPorUsuario(Long usuarioId) {
+        Usuario usuario = usuarioRepository.findById(usuarioId)
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario", "id", usuarioId));
+        List<Adopcion> adopciones = adopcionRepository.findByUsuarioId(usuarioId);
+        return adopciones.stream().map(this::mapearDTO).collect(Collectors.toList());
+    }
+
 
     @Override
     public AdopcionDTO aceptarSolicitud(Long adopcionId) {

@@ -9,4 +9,6 @@ public interface AdopcionRepository extends JpaRepository<Adopcion,Long> {
     boolean existsByUsuarioIdAndPublicacionId(Long usuarioId, Long publicacionId);
 
     List<Adopcion> findByPublicacionId(Long publicacionId);
+    List<Adopcion> findByUsuarioId(Long usuarioId);
+
 }
