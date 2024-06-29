@@ -11,6 +11,8 @@ public class RegistroDTO {
 	private int edad;
 	private String sexo;
 
+	//falta implementar esto
+	private String imagenPerfilPath;
 	private String sobremi;
 
 	public String getNombre() {
@@ -89,4 +91,11 @@ public class RegistroDTO {
 		super();
 	}
 
+	public String getImagenPerfilPath() {
+		return imagenPerfilPath;
+	}
+
+	public void setImagenPerfilPath(String imagenPerfilPath) {
+		this.imagenPerfilPath = imagenPerfilPath;
+	}
 }

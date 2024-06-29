@@ -8,8 +8,8 @@ public class MascotaDTO {
     private String raza;
     private int edad;
 
-    private String imagenPath; // Nueva propiedad para almacenar la ruta de la imagen
-    /*private List<String> fotos; // Lista de nombres de archivos de fotos*/
+    private String imagenPath;
+    private String especie;
 
     // Getters y setters
 
@@ -53,14 +53,11 @@ public class MascotaDTO {
         this.imagenPath = imagenPath;
     }
 
-    /*
-    public List<String> getFotos() {
-        return fotos;
+    public String getEspecie() {
+        return especie;
     }
 
-    public void setFotos(List<String> fotos) {
-        this.fotos = fotos;
+    public void setEspecie(String especie) {
+        this.especie = especie;
     }
-    */
-
 }

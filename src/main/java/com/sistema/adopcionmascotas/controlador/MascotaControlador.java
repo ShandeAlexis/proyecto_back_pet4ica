@@ -66,11 +66,13 @@ public class MascotaControlador {
     public ResponseEntity<MascotaDTO> actualizarMascota( @Valid @PathVariable(name = "id") Long id,
                                                         @RequestParam("nombre") String nombre,
                                                         @RequestParam("raza") String raza,
+                                                        @RequestParam("especie")String especie,
                                                         @RequestParam("edad") int edad,
                                                         @RequestParam(value = "foto", required = false) MultipartFile foto) {
         MascotaDTO mascotaDTO = new MascotaDTO();
         mascotaDTO.setNombre(nombre);
         mascotaDTO.setRaza(raza);
+        mascotaDTO.setEspecie(especie);
         mascotaDTO.setEdad(edad);
         if (foto != null && !foto.isEmpty()) {
             try {

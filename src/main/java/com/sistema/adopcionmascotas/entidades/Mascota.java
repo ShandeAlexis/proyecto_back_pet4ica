@@ -20,22 +20,25 @@ public class Mascota {
     private String raza;
     @Min(value = 0, message = "La edad debe ser un valor positivo")
     private int edad;
+
+    @NotEmpty(message = "La imagen no puede estar vacía")
     private String imagenPath; // Nueva propiedad para la ruta de la imagen
 
-    @OneToMany(mappedBy = "mascota", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Foto> fotos;
+    @NotEmpty(message = "La especie no puede estar vacía")
+    @Size(min = 2, message = "La especie debe tener al menos 2 caracteres")
+    private String especie;
 
     // Constructores, getters y setters
 
     public Mascota() {
     }
 
-    public Mascota(Long id, String nombre, String raza, int edad, List<Foto> fotos) {
+    public Mascota(Long id, String nombre, String raza, int edad, String especie) {
         this.id = id;
         this.nombre = nombre;
         this.raza = raza;
         this.edad = edad;
-        this.fotos = fotos;
+        this.especie= especie;
     }
 
     public Long getId() {
@@ -70,12 +73,13 @@ public class Mascota {
         this.edad = edad;
     }
 
-    public List<Foto> getFotos() {
-        return fotos;
+
+    public String getEspecie() {
+        return especie;
     }
 
-    public void setFotos(List<Foto> fotos) {
-        this.fotos = fotos;
+    public void setEspecie(String especie) {
+        this.especie = especie;
     }
 
     public String getImagenPath() {

@@ -14,4 +14,7 @@ public interface PublicacionServicio {
 	public PublicacionDTO actualizarPublicacion(PublicacionDTO publicacionDTO,long id);
 
 	public void eliminarPublicacion(long id);
+	PublicacionRespuesta obtenerPublicacionesPorEspecie(String especie, int numeroDePagina, int medidaDePagina, String ordenarPor, String sortDir);
+
+
 }

@@ -26,6 +26,9 @@ public class Usuario {
 	@Size(min = 3, message = "El nombre de usuario debe tener al menos 4 caracteres")
 	@Pattern(regexp = ".*\\d.*", message = "El nombre de usuario debe contener al menos un dígito")
 	private String username;
+
+	//falta implementar
+	private String imagenPerfilPath;
 	@NotEmpty(message = "El email no puede estar vacío")
 	@Email(message = "El email debe ser válido")
 	private String email;
@@ -114,5 +117,13 @@ public class Usuario {
 
 	public void setDetalleUsuario(DetalleUsuario detalleUsuario) {
 		this.detalleUsuario = detalleUsuario;
+	}
+
+	public String getImagenPerfilPath() {
+		return imagenPerfilPath;
+	}
+
+	public void setImagenPerfilPath(String imagenPerfilPath) {
+		this.imagenPerfilPath = imagenPerfilPath;
 	}
 }

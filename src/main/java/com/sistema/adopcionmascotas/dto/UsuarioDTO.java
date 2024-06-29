@@ -10,7 +10,7 @@ public class UsuarioDTO {
     private String nombre;
     private String username;
     private String email;
-
+    private String imagenPerfilPath;
     private String sobremi;
     private String dni;
     private String apellidos;
@@ -18,20 +18,21 @@ public class UsuarioDTO {
     private String sexo;
     private Set<Rol> roles;
     @JsonIgnoreProperties("usuario")
-    private Set<PublicacionDTO> publicaciones; // Agregamos el conjunto de PublicacionDTO
+    private Set<PublicacionDTO> publicaciones;
 
     // Constructor
 
     public UsuarioDTO() {
     }
 
-    public UsuarioDTO(Long id, String nombre, String username, String email, String dni, String apellidos,String sobremi, int edad, String sexo, Set<Rol> roles, Set<PublicacionDTO> publicaciones) {
+    public UsuarioDTO(Long id, String nombre, String username, String email, String imagenPerfilPath, String sobremi, String dni, String apellidos, int edad, String sexo, Set<Rol> roles, Set<PublicacionDTO> publicaciones) {
         this.id = id;
         this.nombre = nombre;
         this.username = username;
         this.email = email;
+        this.imagenPerfilPath = imagenPerfilPath;
+        this.sobremi = sobremi;
         this.dni = dni;
-        this.sobremi= sobremi;
         this.apellidos = apellidos;
         this.edad = edad;
         this.sexo = sexo;
@@ -39,7 +40,7 @@ public class UsuarioDTO {
         this.publicaciones = publicaciones;
     }
 
-    // Getters y Setters
+// Getters y Setters
 
     public Long getId() {
         return id;
@@ -127,5 +128,13 @@ public class UsuarioDTO {
 
     public void setSexo(String sexo) {
         this.sexo = sexo;
+    }
+
+    public String getImagenPerfilPath() {
+        return imagenPerfilPath;
+    }
+
+    public void setImagenPerfilPath(String imagenPerfilPath) {
+        this.imagenPerfilPath = imagenPerfilPath;
     }
 }

@@ -63,5 +63,15 @@ public class PublicacionControlador {
 		return new ResponseEntity<>("Publicacion eliminada con exito", HttpStatus.OK);
 	}
 
+	@GetMapping("/filtrar")
+	public PublicacionRespuesta filtrarPublicacionesPorEspecie(
+			@RequestParam(value = "especie") String especie,
+			@RequestParam(value = "pageNo", defaultValue = AppConstantes.NUMERO_DE_PAGINA_POR_DEFECTO, required = false) int numeroDePagina,
+			@RequestParam(value = "pageSize", defaultValue = AppConstantes.MEDIDA_DE_PAGINA_POR_DEFECTO, required = false) int medidaDePagina,
+			@RequestParam(value = "sortBy", defaultValue = AppConstantes.ORDENAR_POR_DEFECTO, required = false) String ordenarPor,
+			@RequestParam(value = "sortDir", defaultValue = AppConstantes.ORDENAR_DIRECCION_POR_DEFECTO, required = false) String sortDir) {
+		return publicacionServicio.obtenerPublicacionesPorEspecie(especie, numeroDePagina, medidaDePagina, ordenarPor, sortDir);
+	}
+
 
 }
