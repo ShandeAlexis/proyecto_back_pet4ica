@@ -12,12 +12,8 @@ public class PublicacionDTO {
 
 	private Long id;
 	
-	@NotEmpty
-	@Size(min = 2,message = "El titulo de la publicación deberia tener al menos 2 caracteres")
 	private String titulo;
 	
-	@NotEmpty
-	@Size(min = 10,message = "La descripción de la publicación deberia tener al menos 10 caracteres")
 	private String descripcion;
 	
 	@NotEmpty

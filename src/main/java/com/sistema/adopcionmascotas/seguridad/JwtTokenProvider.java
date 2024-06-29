@@ -63,6 +63,7 @@ public class JwtTokenProvider {
 		extraClaims.put("permisos",authentication.getAuthorities());
 		extraClaims.put("id",usuario.getId());
 		extraClaims.put("nombre",usuario.getNombre());
+		extraClaims.put("username",usuario.getUsername());
 		return extraClaims;
 	}
 
