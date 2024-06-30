@@ -1,9 +1,12 @@
 package com.sistema.adopcionmascotas.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.time.LocalDateTime;
 
 public class AdopcionDTO {
     private Long id;
+    @JsonIgnoreProperties({"publicaciones","roles"}) // Ignorar publicaciones en el usuario para evitar bucles
     private UsuarioDTO usuario;
     private Long publicacionId;
     private LocalDateTime fechaSolicitud;

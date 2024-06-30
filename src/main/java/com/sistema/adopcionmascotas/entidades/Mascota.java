@@ -24,8 +24,7 @@ public class Mascota {
     @NotEmpty(message = "La imagen no puede estar vacía")
     private String imagenPath; // Nueva propiedad para la ruta de la imagen
 
-    @NotEmpty(message = "La especie no puede estar vacía")
-    @Size(min = 2, message = "La especie debe tener al menos 2 caracteres")
+
     private String especie;
 
     // Constructores, getters y setters

@@ -31,10 +31,12 @@ public class MascotaControlador {
     public ResponseEntity<MascotaDTO> crearMascota(@Valid @RequestParam("nombre") String nombre,
                                                    @RequestParam("raza") String raza,
                                                    @RequestParam("edad") int edad,
+                                                   @RequestParam("especie")String especie,
                                                    @RequestParam("foto") MultipartFile foto) {
         MascotaDTO mascotaDTO = new MascotaDTO();
         mascotaDTO.setNombre(nombre);
         mascotaDTO.setRaza(raza);
+        mascotaDTO.setEspecie(especie);
         mascotaDTO.setEdad(edad);
         if (!foto.isEmpty()) {
             try {

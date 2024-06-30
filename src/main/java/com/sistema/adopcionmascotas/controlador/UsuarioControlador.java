@@ -1,8 +1,6 @@
 package com.sistema.adopcionmascotas.controlador;
 
-import com.sistema.adopcionmascotas.dto.PublicacionDTO;
-import com.sistema.adopcionmascotas.dto.RegistroDTO;
-import com.sistema.adopcionmascotas.dto.UsuarioRespuesta;
+import com.sistema.adopcionmascotas.dto.*;
 import com.sistema.adopcionmascotas.entidades.Usuario;
 import com.sistema.adopcionmascotas.servicio.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,16 +38,31 @@ public class UsuarioControlador {
     }
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> obtenerUsuarioPorId(@PathVariable long id) {
-        Usuario usuario = usuarioServicio.obtenerUsuarioPorId(id);
+    public ResponseEntity<AjusteUsuarioDTO> obtenerUsuarioPorId(@PathVariable(name = "id") long id) {
+        AjusteUsuarioDTO usuario = usuarioServicio.obtenerUsuarioPorId(id);
         return new ResponseEntity<>(usuario, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> actualizarUsuario(@Valid @PathVariable long id, @RequestBody RegistroDTO registroDTO) {
-        Usuario usuario = usuarioServicio.actualizarUsuario(id, registroDTO);
-        return new ResponseEntity<>(usuario, HttpStatus.OK);
+    public ResponseEntity<AjusteUsuarioDTO> actualizarUsuario(@Valid @PathVariable(name = "id") long id,
+                                                              @RequestParam("nombre")String nombre,
+                                                              @RequestParam("apellido")String apellido,
+                                                              @RequestParam("dni")String dni,
+                                                              @RequestParam("edad")int edad,
+                                                              @RequestParam("sexo")String sexo,
+                                                              @RequestParam("sobremi")String sobremi
+
+    ) {
+        AjusteUsuarioDTO ajusteUsuarioDTO1= new AjusteUsuarioDTO();
+        ajusteUsuarioDTO1.setNombre(nombre);
+        ajusteUsuarioDTO1.setApellidos(apellido);
+        ajusteUsuarioDTO1.setDni(dni);
+        ajusteUsuarioDTO1.setEdad(edad);
+        ajusteUsuarioDTO1.setSexo(sexo);
+        ajusteUsuarioDTO1.setSobremi(sobremi);
+
+        AjusteUsuarioDTO usuarioactualizado = usuarioServicio.actualizarUsuario(id,ajusteUsuarioDTO1);
+        return new ResponseEntity<>(usuarioactualizado,HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ADMIN')")

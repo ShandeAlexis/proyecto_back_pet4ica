@@ -10,7 +10,7 @@ public class DetalleUsuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotEmpty(message = "El campo no puede estar vacío")
-    @Size(min = 3, message = "Los apellidos deben tener al menos 3 caracteres")
+    @Size(min = 3, message = "El sobre mi deben tener al menos 3 caracteres")
     private String sobremi;
 
     @NotEmpty(message = "El DNI no puede estar vacío")

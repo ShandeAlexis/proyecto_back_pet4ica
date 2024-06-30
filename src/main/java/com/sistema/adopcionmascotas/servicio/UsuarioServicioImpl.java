@@ -5,6 +5,7 @@ import com.sistema.adopcionmascotas.entidades.DetalleUsuario;
 import com.sistema.adopcionmascotas.entidades.Publicacion;
 import com.sistema.adopcionmascotas.entidades.Rol;
 import com.sistema.adopcionmascotas.entidades.Usuario;
+import com.sistema.adopcionmascotas.excepciones.ResourceNotFoundException;
 import com.sistema.adopcionmascotas.repositorio.RolRepositorio;
 import com.sistema.adopcionmascotas.repositorio.UsuarioRepositorio;
 import org.modelmapper.ModelMapper;
@@ -86,18 +87,16 @@ public class UsuarioServicioImpl implements UsuarioServicio{
     }
 
     @Override
-    public Usuario obtenerUsuarioPorId(long id) {
-        return usuarioRepositorio.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+    public AjusteUsuarioDTO obtenerUsuarioPorId(long id) {
+        Usuario usuario = usuarioRepositorio.findById(id).orElseThrow(()->new ResourceNotFoundException("Usuario","id",id));
+        return mapearAjusteUsuarioDTO(usuario);
     }
-
-    @Override
-    public Usuario actualizarUsuario(long id, RegistroDTO registroDTO) {
-        // Obtener el usuario por su ID
-        Usuario usuario = obtenerUsuarioPorId(id);
-
+    @Transactional
+    public AjusteUsuarioDTO actualizarUsuario(long id, AjusteUsuarioDTO ajusteUsuarioDTO){
+        Usuario usuario = usuarioRepositorio.findById(id).orElseThrow(()->new ResourceNotFoundException("Usuario","id",id));
         // Obtener el detalle del usuario
         DetalleUsuario detalleUsuario = usuario.getDetalleUsuario();
+
 
         // Si el detalleUsuario es null, inicializar uno nuevo
         if (detalleUsuario == null) {
@@ -105,40 +104,23 @@ public class UsuarioServicioImpl implements UsuarioServicio{
             usuario.setDetalleUsuario(detalleUsuario);
         }
 
-        // Verificar y actualizar los campos del usuario
-        if (registroDTO.getNombre() != null) {
-            usuario.setNombre(registroDTO.getNombre());
-        }
-        if (registroDTO.getUsername() != null) {
-            usuario.setUsername(registroDTO.getUsername());
-        }
-        if (registroDTO.getEmail() != null) {
-            usuario.setEmail(registroDTO.getEmail());
-        }
-        if (registroDTO.getPassword() != null) {
-            usuario.setPassword(passwordEncoder.encode(registroDTO.getPassword()));
-        }
+        // Actualizar los campos del usuario
+        usuario.setNombre(ajusteUsuarioDTO.getNombre());
 
-        // Verificar y actualizar los campos del detalleUsuario
-        if (registroDTO.getApellidos() != null) {
-            detalleUsuario.setApellidos(registroDTO.getApellidos());
-        }
-        if (registroDTO.getSobremi() != null) {
-            detalleUsuario.setSobremi(registroDTO.getSobremi());
-        }
-        if (registroDTO.getDni() != null) {
-            detalleUsuario.setDni(registroDTO.getDni());
-        }
-        if (registroDTO.getEdad() != 0) {
-            detalleUsuario.setEdad(registroDTO.getEdad());
-        }
-        if (registroDTO.getSexo() != null) {
-            detalleUsuario.setSexo(registroDTO.getSexo());
-        }
+        // Actualizar los campos del detalleUsuario
+        detalleUsuario.setApellidos(ajusteUsuarioDTO.getApellidos());
+        detalleUsuario.setSobremi(ajusteUsuarioDTO.getSobremi());
+        detalleUsuario.setDni(ajusteUsuarioDTO.getDni());
+        detalleUsuario.setEdad(ajusteUsuarioDTO.getEdad());
+        detalleUsuario.setSexo(ajusteUsuarioDTO.getSexo());
 
         // Guardar y devolver el usuario actualizado
-        return usuarioRepositorio.save(usuario);
+        Usuario usuarioactualizado= usuarioRepositorio.save(usuario);
+        return mapearAjusteUsuarioDTO(usuarioactualizado);
     }
+
+
+
 
 
     @Override
@@ -172,6 +154,17 @@ public class UsuarioServicioImpl implements UsuarioServicio{
         }
 
         return usuarioDTO;
+    }
+    private AjusteUsuarioDTO mapearAjusteUsuarioDTO(Usuario usuario) {
+        AjusteUsuarioDTO ajusteUsuarioDTO = modelMapper.map(usuario, AjusteUsuarioDTO.class);
+        if (usuario.getDetalleUsuario()!=null){
+            ajusteUsuarioDTO.setApellidos(usuario.getDetalleUsuario().getApellidos());
+            ajusteUsuarioDTO.setEdad(usuario.getDetalleUsuario().getEdad());
+            ajusteUsuarioDTO.setDni(usuario.getDetalleUsuario().getDni());
+            ajusteUsuarioDTO.setSobremi(usuario.getDetalleUsuario().getSobremi());
+            ajusteUsuarioDTO.setSexo(usuario.getDetalleUsuario().getSexo());
+        }
+        return ajusteUsuarioDTO;
     }
 
     // Convierte de DTO a Entidad

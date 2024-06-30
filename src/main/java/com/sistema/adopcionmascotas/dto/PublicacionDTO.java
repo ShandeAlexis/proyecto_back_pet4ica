@@ -21,12 +21,13 @@ public class PublicacionDTO {
 
 	private MascotaDTO mascota;
 
+	@JsonIgnoreProperties("publicaciones") // Ignorar publicaciones en el usuario para evitar bucles
 	private UsuarioDTO usuario; // Información del usuario asociado a la publicación
 
 	@JsonIgnoreProperties("publicaciones") // Ignorar publicaciones en el usuario para evitar bucles
 	private Set<Comentario> comentarios;
 
-	@JsonIgnoreProperties("publicacion") // Ignorar publicación en adopciones para evitar bucles
+	@JsonIgnoreProperties("publicaciones") // Ignorar publicación en adopciones para evitar bucles
 	private Set<AdopcionDTO> adopciones;
 
 	public Long getId() {
@@ -88,5 +89,13 @@ public class PublicacionDTO {
 
 	public void setUsuario(UsuarioDTO usuario) {
 		this.usuario = usuario;
+	}
+
+	public Set<AdopcionDTO> getAdopciones() {
+		return adopciones;
+	}
+
+	public void setAdopciones(Set<AdopcionDTO> adopciones) {
+		this.adopciones = adopciones;
 	}
 }
