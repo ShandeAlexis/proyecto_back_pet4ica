@@ -8,7 +8,8 @@ public class AdopcionDTO {
     private Long id;
     @JsonIgnoreProperties({"publicaciones","roles"}) // Ignorar publicaciones en el usuario para evitar bucles
     private UsuarioDTO usuario;
-    private Long publicacionId;
+    @JsonIgnoreProperties("adopciones") // para evitar bucles
+    private PublicacionDTO publicacion;
     private LocalDateTime fechaSolicitud;
     private String estado;
 
@@ -30,14 +31,6 @@ public class AdopcionDTO {
         this.usuario = usuario;
     }
 
-    public Long getPublicacionId() {
-        return publicacionId;
-    }
-
-    public void setPublicacionId(Long publicacionId) {
-        this.publicacionId = publicacionId;
-    }
-
     public LocalDateTime getFechaSolicitud() {
         return fechaSolicitud;
     }
@@ -52,5 +45,13 @@ public class AdopcionDTO {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public PublicacionDTO getPublicacion() {
+        return publicacion;
+    }
+
+    public void setPublicacion(PublicacionDTO publicacion) {
+        this.publicacion = publicacion;
     }
 }
