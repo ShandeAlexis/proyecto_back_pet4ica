@@ -3,6 +3,7 @@ package com.sistema.adopcionmascotas.servicio;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.sistema.adopcionmascotas.dto.CrearPublicacionDTO;
 import com.sistema.adopcionmascotas.dto.UsuarioDTO;
 import com.sistema.adopcionmascotas.entidades.Usuario;
 import com.sistema.adopcionmascotas.repositorio.UsuarioRepositorio;
@@ -61,6 +62,26 @@ public class PublicacionServicioImpl implements PublicacionServicio {
 
 		Publicacion nuevaPublicacion = publicacionRepositorio.save(publicacion);
 		return mapearDTO(nuevaPublicacion);
+	}
+
+
+	@Override
+	public PublicacionDTO crearPublicacion2(CrearPublicacionDTO crearPublicacionDTO) {
+		Publicacion publicacion = new Publicacion();
+		publicacion.setTitulo(crearPublicacionDTO.getTitulo());
+		publicacion.setDescripcion(crearPublicacionDTO.getDescripcion());
+		publicacion.setContenido(crearPublicacionDTO.getContenido());
+
+		Mascota mascota = mascotaRepositorio.findById(crearPublicacionDTO.getMascotaId())
+				.orElseThrow(() -> new ResourceNotFoundException("Mascota", "id", crearPublicacionDTO.getMascotaId()));
+		publicacion.setMascota(mascota);
+
+		Usuario usuario = usuarioRepositorio.findById(crearPublicacionDTO.getUsuarioId())
+				.orElseThrow(() -> new ResourceNotFoundException("Usuario", "id", crearPublicacionDTO.getUsuarioId()));
+		publicacion.setUsuario(usuario);
+
+		Publicacion nuevaPublicacion = publicacionRepositorio.save(publicacion);
+		return modelMapper.map(nuevaPublicacion, PublicacionDTO.class);
 	}
 
 

@@ -2,6 +2,7 @@ package com.sistema.adopcionmascotas.controlador;
 
 import javax.validation.Valid;
 
+import com.sistema.adopcionmascotas.dto.CrearPublicacionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,6 +72,12 @@ public class PublicacionControlador {
 			@RequestParam(value = "sortBy", defaultValue = AppConstantes.ORDENAR_POR_DEFECTO, required = false) String ordenarPor,
 			@RequestParam(value = "sortDir", defaultValue = AppConstantes.ORDENAR_DIRECCION_POR_DEFECTO, required = false) String sortDir) {
 		return publicacionServicio.obtenerPublicacionesPorEspecie(especie, numeroDePagina, medidaDePagina, ordenarPor, sortDir);
+	}
+
+	@PreAuthorize("hasRole('ADMIN')")
+	@PostMapping("/guardar")
+	public ResponseEntity<PublicacionDTO> guardarPublicacion(@Valid @RequestBody CrearPublicacionDTO crearPublicacionDTO) {
+		return new ResponseEntity<>(publicacionServicio.crearPublicacion2(crearPublicacionDTO), HttpStatus.CREATED);
 	}
 
 
