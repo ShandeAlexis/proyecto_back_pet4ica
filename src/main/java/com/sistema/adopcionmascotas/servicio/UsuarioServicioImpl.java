@@ -97,7 +97,6 @@ public class UsuarioServicioImpl implements UsuarioServicio{
         // Obtener el detalle del usuario
         DetalleUsuario detalleUsuario = usuario.getDetalleUsuario();
 
-
         // Si el detalleUsuario es null, inicializar uno nuevo
         if (detalleUsuario == null) {
             detalleUsuario = new DetalleUsuario();
@@ -114,9 +113,14 @@ public class UsuarioServicioImpl implements UsuarioServicio{
         detalleUsuario.setEdad(ajusteUsuarioDTO.getEdad());
         detalleUsuario.setSexo(ajusteUsuarioDTO.getSexo());
 
+        // Actualizar el campo de la imagen de perfil si está presente
+        if (ajusteUsuarioDTO.getImagenPerfilPath() != null) {
+            usuario.setImagenPerfilPath(ajusteUsuarioDTO.getImagenPerfilPath());
+        }
+
         // Guardar y devolver el usuario actualizado
-        Usuario usuarioactualizado= usuarioRepositorio.save(usuario);
-        return mapearAjusteUsuarioDTO(usuarioactualizado);
+        Usuario usuarioActualizado = usuarioRepositorio.save(usuario);
+        return mapearAjusteUsuarioDTO(usuarioActualizado);
     }
 
 
