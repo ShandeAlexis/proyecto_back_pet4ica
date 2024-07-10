@@ -112,6 +112,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
         detalleUsuario.setDni(ajusteUsuarioDTO.getDni());
         detalleUsuario.setEdad(ajusteUsuarioDTO.getEdad());
         detalleUsuario.setSexo(ajusteUsuarioDTO.getSexo());
+        detalleUsuario.setTelefono(ajusteUsuarioDTO.getTelefono());
 
         // Actualizar el campo de la imagen de perfil si está presente
         if (ajusteUsuarioDTO.getImagenPerfilPath() != null) {
@@ -155,6 +156,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
             usuarioDTO.setApellidos(usuario.getDetalleUsuario().getApellidos());
             usuarioDTO.setEdad(usuario.getDetalleUsuario().getEdad());
             usuarioDTO.setSexo(usuario.getDetalleUsuario().getSexo());
+            usuarioDTO.setTelefono(usuario.getDetalleUsuario().getTelefono());
         }
 
         return usuarioDTO;
@@ -167,6 +169,7 @@ public class UsuarioServicioImpl implements UsuarioServicio{
             ajusteUsuarioDTO.setDni(usuario.getDetalleUsuario().getDni());
             ajusteUsuarioDTO.setSobremi(usuario.getDetalleUsuario().getSobremi());
             ajusteUsuarioDTO.setSexo(usuario.getDetalleUsuario().getSexo());
+            ajusteUsuarioDTO.setTelefono(usuario.getDetalleUsuario().getTelefono());
         }
         return ajusteUsuarioDTO;
     }

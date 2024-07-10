@@ -81,6 +81,14 @@ public class AdopcionServicioImpl implements AdopcionServicio{
         adopcion = adopcionRepository.save(adopcion);
         return mapearDTO(adopcion);
     }
+    @Override
+    public void eliminarSolicitud(Long adopcionId) {
+        Adopcion adopcion = adopcionRepository.findById(adopcionId)
+                .orElseThrow(() -> new ResourceNotFoundException("Adopcion", "id", adopcionId));
+
+        adopcionRepository.delete(adopcion);
+    }
+
 
     private AdopcionDTO mapearDTO(Adopcion adopcion) {
         return modelMapper.map(adopcion, AdopcionDTO.class);

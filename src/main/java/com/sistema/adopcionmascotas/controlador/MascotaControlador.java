@@ -3,6 +3,7 @@ package com.sistema.adopcionmascotas.controlador;
 import com.sistema.adopcionmascotas.dto.MascotaDTO;
 import com.sistema.adopcionmascotas.servicio.MascotaServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -20,10 +21,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/mascotas")
-@CrossOrigin(origins = "http://localhost:5173") // Permitir solicitudes desde localhost:5173
 public class MascotaControlador {
-    private static final String UPLOAD_DIR = "fotos/";
-
+    @Value("${file.upload-dir}")
+    private String uploadDir;
     @Autowired
     private MascotaServicio mascotaServicio;
 
@@ -42,7 +42,7 @@ public class MascotaControlador {
             try {
                 // Generar un nombre único para la imagen
                 String fileName = generateUniqueFileName(foto.getOriginalFilename());
-                Path path = Paths.get(UPLOAD_DIR + fileName);
+                Path path = Paths.get(uploadDir  + fileName);
                 Files.write(path, foto.getBytes());
                 mascotaDTO.setImagenPath(fileName);
             } catch (IOException e) {
@@ -80,7 +80,7 @@ public class MascotaControlador {
             try {
                 // Guardar la nueva foto en el sistema de archivos
                 String fileName = foto.getOriginalFilename();
-                Path path = Paths.get(UPLOAD_DIR + fileName);
+                Path path = Paths.get(uploadDir  + fileName);
                 Files.write(path, foto.getBytes());
                 mascotaDTO.setImagenPath(fileName);
             } catch (IOException e) {
@@ -101,7 +101,7 @@ public class MascotaControlador {
     // Método para servir imágenes estáticas
     @GetMapping(value = "/images/{nombreImagen:.+}")
     public ResponseEntity<?> findImageFromPath(@PathVariable("nombreImagen") String nombreImagen) throws IOException {
-        Path rutaArchivo = Paths.get("C:/Users/Alexis/Downloads/mini-sistema-blog-api-rest-spring-master/sistema-blog-spring-boot-api-rest/fotos").resolve(nombreImagen).toAbsolutePath();
+        Path rutaArchivo = Paths.get(uploadDir).resolve(nombreImagen).toAbsolutePath();
 
         Resource resource = new UrlResource(rutaArchivo.toUri());
 
@@ -124,10 +124,10 @@ public class MascotaControlador {
         }
 
         int counter = 1;
-        Path path = Paths.get(UPLOAD_DIR + originalFileName);
+        Path path = Paths.get(uploadDir  + originalFileName);
         while (Files.exists(path)) {
             fileName = originalFileName.substring(0, dotIndex) + "_" + counter + extension;
-            path = Paths.get(UPLOAD_DIR + fileName);
+            path = Paths.get(uploadDir  + fileName);
             counter++;
         }
         return fileName;

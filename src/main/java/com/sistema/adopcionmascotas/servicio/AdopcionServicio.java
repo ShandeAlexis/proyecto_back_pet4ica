@@ -13,4 +13,8 @@ public interface AdopcionServicio {
     AdopcionDTO aceptarSolicitud(Long adopcionId);
 
     AdopcionDTO rechazarSolicitud(Long adopcionId);
+
+    void eliminarSolicitud(Long adopcionId);
+
+
 }

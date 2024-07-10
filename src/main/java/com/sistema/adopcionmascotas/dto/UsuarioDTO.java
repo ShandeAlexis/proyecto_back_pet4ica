@@ -16,6 +16,7 @@ public class UsuarioDTO {
     private String apellidos;
     private int edad;
     private String sexo;
+    private int telefono;
     private Set<Rol> roles;
     @JsonIgnoreProperties("usuario")
     private Set<PublicacionDTO> publicaciones;
@@ -25,7 +26,7 @@ public class UsuarioDTO {
     public UsuarioDTO() {
     }
 
-    public UsuarioDTO(Long id, String nombre, String username, String email, String imagenPerfilPath, String sobremi, String dni, String apellidos, int edad, String sexo, Set<Rol> roles, Set<PublicacionDTO> publicaciones) {
+    public UsuarioDTO(Long id, String nombre, String username, String email, String imagenPerfilPath, String sobremi, String dni, String apellidos, int edad, String sexo, int telefono, Set<Rol> roles, Set<PublicacionDTO> publicaciones) {
         this.id = id;
         this.nombre = nombre;
         this.username = username;
@@ -36,10 +37,10 @@ public class UsuarioDTO {
         this.apellidos = apellidos;
         this.edad = edad;
         this.sexo = sexo;
+        this.telefono = telefono;
         this.roles = roles;
         this.publicaciones = publicaciones;
     }
-
 // Getters y Setters
 
     public Long getId() {
@@ -136,5 +137,13 @@ public class UsuarioDTO {
 
     public void setImagenPerfilPath(String imagenPerfilPath) {
         this.imagenPerfilPath = imagenPerfilPath;
+    }
+
+    public int getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
     }
 }

@@ -4,6 +4,7 @@ import com.sistema.adopcionmascotas.dto.*;
 import com.sistema.adopcionmascotas.entidades.Usuario;
 import com.sistema.adopcionmascotas.servicio.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -23,7 +24,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/usuarios")
 public class UsuarioControlador {
-    private static final String UPLOAD_DIR = "fotosusuarios/";
+    @Value("${file.uploaduser-dir}")
+    private String uploadDir;
 
     @Autowired
     private UsuarioServicio usuarioServicio;
@@ -63,6 +65,7 @@ public class UsuarioControlador {
                                                               @RequestParam("edad") int edad,
                                                               @RequestParam("sexo") String sexo,
                                                               @RequestParam("sobremi") String sobremi,
+                                                              @RequestParam("telefono")int telefono,
                                                               @RequestParam(value = "foto", required = false) MultipartFile foto) {
         AjusteUsuarioDTO ajusteUsuarioDTO1 = new AjusteUsuarioDTO();
         ajusteUsuarioDTO1.setNombre(nombre);
@@ -71,6 +74,7 @@ public class UsuarioControlador {
         ajusteUsuarioDTO1.setEdad(edad);
         ajusteUsuarioDTO1.setSexo(sexo);
         ajusteUsuarioDTO1.setSobremi(sobremi);
+        ajusteUsuarioDTO1.setTelefono(telefono);
 
         if (foto != null && !foto.isEmpty()) {
             try {
@@ -79,13 +83,13 @@ public class UsuarioControlador {
 
                 // Si el usuario ya tiene una imagen de perfil, eliminarla
                 if (usuarioActual.getImagenPerfilPath() != null && !usuarioActual.getImagenPerfilPath().isEmpty()) {
-                    Path rutaImagenAnterior = Paths.get(UPLOAD_DIR).resolve(usuarioActual.getImagenPerfilPath()).toAbsolutePath();
+                    Path rutaImagenAnterior = Paths.get(uploadDir).resolve(usuarioActual.getImagenPerfilPath()).toAbsolutePath();
                     Files.deleteIfExists(rutaImagenAnterior);
                 }
 
                 // Generar un nombre único para la nueva imagen
                 String fileName = generateUniqueFileName(foto.getOriginalFilename());
-                Path path = Paths.get(UPLOAD_DIR + fileName);
+                Path path = Paths.get(uploadDir + fileName);
                 Files.write(path, foto.getBytes());
                 ajusteUsuarioDTO1.setImagenPerfilPath(fileName);
             } catch (IOException e) {
@@ -114,7 +118,7 @@ public class UsuarioControlador {
     // Método para servir imágenes estáticas
     @GetMapping(value = "/images/{nombreImagen:.+}")
     public ResponseEntity<?> findImageFromPath(@PathVariable("nombreImagen") String nombreImagen) throws IOException {
-        Path rutaArchivo = Paths.get("C:/Users/Alexis/Downloads/mini-sistema-blog-api-rest-spring-master/sistema-blog-spring-boot-api-rest/fotosusuarios").resolve(nombreImagen).toAbsolutePath();
+        Path rutaArchivo = Paths.get(uploadDir).resolve(nombreImagen).toAbsolutePath();
 
         Resource resource = new UrlResource(rutaArchivo.toUri());
 
@@ -138,10 +142,10 @@ public class UsuarioControlador {
         }
 
         int counter = 1;
-        Path path = Paths.get(UPLOAD_DIR + originalFileName);
+        Path path = Paths.get(uploadDir + originalFileName);
         while (Files.exists(path)) {
             fileName = originalFileName.substring(0, dotIndex) + "_" + counter + extension;
-            path = Paths.get(UPLOAD_DIR + fileName);
+            path = Paths.get(uploadDir + fileName);
             counter++;
         }
         return fileName;

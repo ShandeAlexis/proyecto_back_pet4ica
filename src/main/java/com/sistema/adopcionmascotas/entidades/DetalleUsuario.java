@@ -26,6 +26,8 @@ public class DetalleUsuario {
     @Pattern(regexp = "Masculino|Femenino|No binario", message = "El sexo debe ser 'Masculino' o 'Femenino' o 'No binario'")
     private String sexo;
 
+    @Pattern(regexp = "\\d{9}", message = "El DNI debe tener 9 dígitos")
+    private int telefono;
 
     public String getSobremi() {
         return sobremi;
@@ -73,5 +75,14 @@ public class DetalleUsuario {
 
     public void setSexo(String sexo) {
         this.sexo = sexo;
+    }
+
+
+    public int getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
     }
 }

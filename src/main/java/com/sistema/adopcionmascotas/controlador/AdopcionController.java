@@ -52,4 +52,9 @@ public class AdopcionController {
         return ResponseEntity.ok(adopcionServicio.obtenerSolicitudesPorUsuario(usuarioId));
     }
 
+    @DeleteMapping("/{adopcionId}")
+    public ResponseEntity<Void> eliminarSolicitud(@PathVariable Long adopcionId) {
+        adopcionServicio.eliminarSolicitud(adopcionId);
+        return ResponseEntity.noContent().build();
+    }
 }

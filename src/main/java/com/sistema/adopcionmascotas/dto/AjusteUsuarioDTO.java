@@ -15,12 +15,14 @@ public class AjusteUsuarioDTO {
     private String apellidos;
     private int edad;
     private String sexo;
+
+    private int telefono;
     private Set<Rol> roles;
 
     public AjusteUsuarioDTO() {
     }
 
-    public AjusteUsuarioDTO(Long id, String nombre, String username, String email, String imagenPerfilPath, String sobremi, String dni, String apellidos, int edad, String sexo, Set<Rol> roles) {
+    public AjusteUsuarioDTO(Long id, String nombre, String username, String email, String imagenPerfilPath, String sobremi, String dni, String apellidos, int edad, String sexo, int telefono, Set<Rol> roles) {
         this.id = id;
         this.nombre = nombre;
         this.username = username;
@@ -31,6 +33,7 @@ public class AjusteUsuarioDTO {
         this.apellidos = apellidos;
         this.edad = edad;
         this.sexo = sexo;
+        this.telefono = telefono;
         this.roles = roles;
     }
 
@@ -120,5 +123,13 @@ public class AjusteUsuarioDTO {
 
     public void setRoles(Set<Rol> roles) {
         this.roles = roles;
+    }
+
+    public int getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
     }
 }
